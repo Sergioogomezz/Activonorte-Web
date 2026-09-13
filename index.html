@@ -65,10 +65,7 @@
       transform: translateY(32px);
       transition: opacity 0.65s ease, transform 0.65s ease;
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
@@ -238,11 +235,7 @@
     }
     .container { max-width: 1140px; margin: 0 auto; }
     #agencia { background: #fff; }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .feature-card {
       background: #fff;
       border: 1px solid #e8e8e8;
@@ -272,11 +265,7 @@
     .feature-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
 
     #testimonios { background: var(--light); }
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .testimonial-card {
       background: #fff;
       border-radius: 10px;
@@ -286,10 +275,7 @@
       border: 1px solid #ececec;
       transition: transform 0.28s ease, box-shadow 0.28s ease;
     }
-    .testimonial-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 14px 40px rgba(0,0,0,0.1);
-    }
+    .testimonial-card:hover { transform: translateY(-5px); box-shadow: 0 14px 40px rgba(0,0,0,0.1); }
     .testimonial-card img {
       width: 80px; height: 80px;
       border-radius: 50%;
@@ -310,11 +296,7 @@
     .testimonial-role { color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
 
     #servicios { background: #fff; }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .service-card {
       background: #fff;
       border: 1px solid #e8e8e8;
@@ -325,13 +307,9 @@
       flex-direction: column;
       transition: transform 0.28s ease, box-shadow 0.28s ease;
     }
-    .service-card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 18px 48px rgba(0,0,0,0.13);
-    }
+    .service-card:hover { transform: translateY(-7px); box-shadow: 0 18px 48px rgba(0,0,0,0.13); }
     .service-card-img {
-      width: 100%;
-      height: 200px;
+      width: 100%; height: 200px;
       object-fit: cover;
       transition: transform 0.5s ease;
     }
@@ -386,11 +364,10 @@
 </head>
 <body>
 
-<!-- ── LOADER ── pegar siempre como primer hijo de <body> ────── -->
+<!-- ── LOADER ─────────────────────────────────────────────── -->
 <div id="page-loader">
   <img id="loader-logo" src="Logoazul.png" alt="Activonorte" />
 </div>
-<!-- ────────────────────────────────────────────────────────── -->
 
 <header>
   <div class="logo">ACTIVONORTE</div>
@@ -408,6 +385,7 @@
   <a href="#agencia">Agencia</a>
   <a href="#servicios">Servicios</a>
 </div>
+
 <section class="hero">
   <div class="hero-bg" id="heroBg"></div>
   <div class="hero-overlay"></div>
@@ -426,6 +404,7 @@
     </svg>
   </div>
 </section>
+
 <section id="agencia">
   <div class="container">
     <h2 class="section-title reveal">¿Por qué elegirnos?</h2>
@@ -464,6 +443,7 @@
     </div>
   </div>
 </section>
+
 <section id="testimonios">
   <div class="container">
     <h2 class="section-title reveal">Resultados Reales en Gimnasios Reales</h2>
@@ -495,10 +475,12 @@
     </div>
   </div>
 </section>
+
 <section id="servicios">
   <div class="container">
     <h2 class="section-title reveal">Nuestros Servicios</h2>
     <div class="services-grid">
+
       <div class="service-card reveal reveal-delay-1">
         <div class="service-card-img-wrap">
           <img class="service-card-img"
@@ -513,6 +495,7 @@
              target="_blank" class="btn-card">Comprar ahora</a>
         </div>
       </div>
+
       <div class="service-card reveal reveal-delay-2">
         <div class="service-card-img-wrap">
           <img class="service-card-img"
@@ -523,10 +506,12 @@
           <h3>Pack Dominio Local</h3>
           <p>Te posicionamos como el gimnasio de referencia en Google y tu zona.</p>
           <div class="price">Consultar</div>
+          <!-- ✅ btn-loader activa la pantalla de carga -->
           <a href="https://wa.me/34610387276?text=Hola%20quiero%20información%20del%20Pack%20Dominio%20Local"
-             target="_blank" class="btn-card">Pedir Info</a>
+             class="btn-card btn-loader">Pedir Info</a>
         </div>
       </div>
+
       <div class="service-card reveal reveal-delay-3">
         <div class="service-card-img-wrap">
           <img class="service-card-img"
@@ -541,9 +526,11 @@
              target="_blank" class="btn-card">Agendar</a>
         </div>
       </div>
+
     </div>
   </div>
 </section>
+
 <section id="contacto">
   <div class="container">
     <h2 class="reveal">¿Listo para llenar tu gimnasio?</h2>
@@ -554,6 +541,7 @@
     </a>
   </div>
 </section>
+
 <footer>
   <p>© 2026 Activonorte. Todos los derechos reservados.</p>
 </footer>
@@ -592,21 +580,18 @@
   const loader = document.getElementById('page-loader');
 
   function showLoader(callback) {
-    loader.classList.add('active');       // fade in (180ms CSS)
+    loader.classList.add('active');
     setTimeout(() => {
-      callback();                         // hace el scroll
-      setTimeout(() => {
-        loader.classList.remove('active'); // fade out (180ms CSS)
-      }, 160);
+      callback();
+      setTimeout(() => loader.classList.remove('active'), 160);
     }, 240);
   }
 
-  /* ── NAV LINKS → activan el loader ──────────────────────── */
+  /* ── NAV LINKS → scroll con loader ──────────────────────── */
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       const targetId = this.getAttribute('href');
       if (!targetId || targetId === '#') {
-        // Clic en "Inicio" → vuelve arriba con loader
         e.preventDefault();
         mobileNav.classList.remove('open');
         showLoader(() => window.scrollTo({ top: 0, behavior: 'instant' }));
@@ -614,16 +599,23 @@
       }
       const target = document.querySelector(targetId);
       if (!target) return;
-
       e.preventDefault();
       mobileNav.classList.remove('open');
-
       showLoader(() => {
         window.scrollTo({
           top: target.getBoundingClientRect().top + window.scrollY - 64,
           behavior: 'instant'
         });
       });
+    });
+  });
+
+  /* ── BOTÓN "PEDIR INFO" → abre WhatsApp con loader ──────── */
+  document.querySelectorAll('.btn-loader').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      const url = this.getAttribute('href');
+      showLoader(() => window.open(url, '_blank'));
     });
   });
 </script>
