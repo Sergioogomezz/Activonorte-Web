@@ -32,34 +32,186 @@
       --muted:     #666;
     }
 
-    /* ── LOADER ───────────────────────────────────────────────── */
+    /* ════════════════════════════════════════════════════════
+       LOADER PREMIUM
+    ════════════════════════════════════════════════════════ */
     #page-loader {
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: radial-gradient(ellipse at center, #111 0%, #0a0a0a 100%);
+      background: radial-gradient(ellipse at center, #004f60 0%, #003b46 45%, #001e25 100%);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.18s ease;
+      transition: opacity 0.3s ease;
+      overflow: hidden;
     }
     #page-loader.active {
       opacity: 1;
       pointer-events: all;
     }
-    #loader-logo {
-      width: 90px;
-      height: auto;
-      animation: loaderPulse 0.9s ease-in-out infinite;
-    }
-    @keyframes loaderPulse {
-      0%, 100% { transform: scale(1);    opacity: 0.85; }
-      50%       { transform: scale(1.1); opacity: 1;    }
+
+    /* Cuadrícula de fondo sutil */
+    #page-loader::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
     }
 
-    /* ── REVEAL ───────────────────────────────────────────────── */
+    /* Anillos expansivos */
+    .loader-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(224,94,0,0.2);
+      animation: ringExpand 2.4s ease-out infinite;
+      pointer-events: none;
+    }
+    .loader-ring:nth-child(1) { width: 180px; height: 180px; animation-delay: 0s; }
+    .loader-ring:nth-child(2) { width: 300px; height: 300px; animation-delay: 0.6s; }
+    .loader-ring:nth-child(3) { width: 440px; height: 440px; animation-delay: 1.2s; }
+    @keyframes ringExpand {
+      0%   { opacity: 0.7; transform: scale(0.75); }
+      100% { opacity: 0;   transform: scale(1.15); }
+    }
+
+    /* Contenedor central */
+    #loader-center {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      animation: centerReveal 0.5s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+    }
+    @keyframes centerReveal {
+      0%   { opacity: 0; transform: scale(0.75) translateY(12px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Logo con halo naranja */
+    #loader-logo-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #loader-logo-wrap::before {
+      content: '';
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(224,94,0,0.18) 0%, transparent 70%);
+      animation: haloPulse 1.8s ease-in-out infinite;
+    }
+    @keyframes haloPulse {
+      0%, 100% { transform: scale(1);    opacity: 0.8; }
+      50%       { transform: scale(1.15); opacity: 1;   }
+    }
+    #loader-logo {
+      width: 88px;
+      height: auto;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 0 18px rgba(224,94,0,0.35));
+    }
+
+    /* Divider naranja */
+    #loader-divider {
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #e05e00, transparent);
+      border-radius: 2px;
+      animation: dividerGrow 0.6s ease 0.2s both;
+    }
+    @keyframes dividerGrow {
+      from { width: 0; opacity: 0; }
+      to   { width: 40px; opacity: 1; }
+    }
+
+    /* Tagline */
+    #loader-tagline {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.65);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      animation: fadeInUp 0.5s ease 0.25s both;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Puntos animados */
+    .loader-dots {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .loader-dots span {
+      display: block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #e05e00;
+      animation: dotBounce 1.2s ease-in-out infinite;
+    }
+    .loader-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loader-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes dotBounce {
+      0%, 100% { transform: translateY(0);   opacity: 0.35; }
+      50%       { transform: translateY(-5px); opacity: 1;   }
+    }
+
+    /* Barra de progreso */
+    #loader-bar-wrap {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(255,255,255,0.08);
+    }
+    #loader-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #e05e00, #ff8c38);
+      border-radius: 0 2px 2px 0;
+    }
+    #page-loader.active #loader-bar {
+      animation: barFill 1s linear forwards;
+    }
+    @keyframes barFill {
+      from { width: 0%; }
+      to   { width: 100%; }
+    }
+
+    /* Marca de esquina estilo premium */
+    #loader-version {
+      position: absolute;
+      bottom: 18px;
+      right: 20px;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.15);
+      letter-spacing: 0.1em;
+      font-family: monospace;
+    }
+
+    /* ════════════════════════════════════════════════════════
+       REVEAL
+    ════════════════════════════════════════════════════════ */
     .reveal {
       opacity: 0;
       transform: translateY(32px);
@@ -70,7 +222,9 @@
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
 
-    /* ── HEADER ───────────────────────────────────────────────── */
+    /* ════════════════════════════════════════════════════════
+       HEADER
+    ════════════════════════════════════════════════════════ */
     header {
       position: sticky;
       top: 0;
@@ -131,7 +285,9 @@
     }
     #mobile-nav a:last-child { border-bottom: none; }
 
-    /* ── HERO ─────────────────────────────────────────────────── */
+    /* ════════════════════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════════════════════ */
     .hero {
       position: relative;
       height: calc(100vh - 60px);
@@ -223,7 +379,9 @@
       50% { transform: translateX(-50%) translateY(7px); }
     }
 
-    /* ── SECTIONS ─────────────────────────────────────────────── */
+    /* ════════════════════════════════════════════════════════
+       SECTIONS
+    ════════════════════════════════════════════════════════ */
     section { padding: 80px 40px; }
     .section-title {
       text-align: center;
@@ -245,11 +403,7 @@
       box-shadow: 0 2px 12px rgba(0,0,0,0.06);
       transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
     }
-    .feature-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 36px rgba(0,0,0,0.11);
-      border-color: var(--orange);
-    }
+    .feature-card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(0,0,0,0.11); border-color: var(--orange); }
     .feature-icon {
       width: 52px; height: 52px;
       border-radius: 50%;
@@ -285,13 +439,7 @@
       transition: border-color 0.25s;
     }
     .testimonial-card:hover img { border-color: var(--orange); }
-    .testimonial-card blockquote {
-      font-style: italic;
-      color: var(--text);
-      font-size: 0.9rem;
-      line-height: 1.65;
-      margin-bottom: 18px;
-    }
+    .testimonial-card blockquote { font-style: italic; color: var(--text); font-size: 0.9rem; line-height: 1.65; margin-bottom: 18px; }
     .testimonial-author { font-weight: 700; color: var(--teal); font-size: 0.9rem; }
     .testimonial-role { color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
 
@@ -308,11 +456,7 @@
       transition: transform 0.28s ease, box-shadow 0.28s ease;
     }
     .service-card:hover { transform: translateY(-7px); box-shadow: 0 18px 48px rgba(0,0,0,0.13); }
-    .service-card-img {
-      width: 100%; height: 200px;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
+    .service-card-img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.5s ease; }
     .service-card:hover .service-card-img { transform: scale(1.04); }
     .service-card-img-wrap { overflow: hidden; }
     .service-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
@@ -335,11 +479,7 @@
       box-shadow: 0 3px 12px rgba(224,94,0,0.25);
       margin-top: auto;
     }
-    .btn-card:hover {
-      background: var(--orange-h);
-      transform: translateY(-2px);
-      box-shadow: 0 7px 22px rgba(224,94,0,0.38);
-    }
+    .btn-card:hover { background: var(--orange-h); transform: translateY(-2px); box-shadow: 0 7px 22px rgba(224,94,0,0.38); }
 
     #contacto { background: var(--teal); padding: 72px 40px; text-align: center; }
     #contacto h2 { color: #fff; font-size: clamp(1.7rem, 3.5vw, 2.4rem); font-weight: 900; margin-bottom: 14px; letter-spacing: -0.3px; }
@@ -364,9 +504,31 @@
 </head>
 <body>
 
-<!-- ── LOADER ─────────────────────────────────────────────── -->
+<!-- ════════════════════════════════════════════════════════
+     LOADER PREMIUM — solo se activa con btn-loader
+════════════════════════════════════════════════════════ -->
 <div id="page-loader">
-  <img id="loader-logo" src="Logoazul.png" alt="Activonorte" />
+  <div class="loader-ring"></div>
+  <div class="loader-ring"></div>
+  <div class="loader-ring"></div>
+
+  <div id="loader-center">
+    <div id="loader-logo-wrap">
+      <img id="loader-logo" src="Logoazul.png" alt="Activonorte" />
+    </div>
+    <div id="loader-divider"></div>
+    <div id="loader-tagline">
+      Conectando con el equipo
+      <span class="loader-dots">
+        <span></span><span></span><span></span>
+      </span>
+    </div>
+  </div>
+
+  <div id="loader-bar-wrap">
+    <div id="loader-bar"></div>
+  </div>
+  <div id="loader-version">ACTIVONORTE · ECOSISTEMA DE CRECIMIENTO</div>
 </div>
 
 <header>
@@ -450,25 +612,19 @@
     <div class="testimonials-grid">
       <div class="testimonial-card reveal reveal-delay-1">
         <img src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?auto=format&fit=crop&w=300&q=80" alt="Carlos Martínez" />
-        <blockquote>
-          "Llevábamos meses perdiendo socios y tirando de recomendaciones. Con el protocolo de reactivación recuperamos más de 30 antiguos clientes en menos de 3 semanas."
-        </blockquote>
+        <blockquote>"Llevábamos meses perdiendo socios y tirando de recomendaciones. Con el protocolo de reactivación recuperamos más de 30 antiguos clientes en menos de 3 semanas."</blockquote>
         <div class="testimonial-author">Carlos Martínez</div>
         <div class="testimonial-role">Propietario · Centro Fitness Bahía (Cantabria)</div>
       </div>
       <div class="testimonial-card reveal reveal-delay-2">
         <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80" alt="Laura Gómez" />
-        <blockquote>
-          "Por primera vez dejamos de improvisar el marketing. Ahora entran leads todas las semanas y nuestras clases de tarde están casi siempre llenas."
-        </blockquote>
+        <blockquote>"Por primera vez dejamos de improvisar el marketing. Ahora entran leads todas las semanas y nuestras clases de tarde están casi siempre llenas."</blockquote>
         <div class="testimonial-author">Laura Gómez</div>
         <div class="testimonial-role">Directora · Box Norte Training (Cantabria)</div>
       </div>
       <div class="testimonial-card reveal reveal-delay-3">
         <img src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?auto=format&fit=crop&w=300&q=80" alt="Javier Ruiz" />
-        <blockquote>
-          "No queríamos redes sociales, queríamos socios. Activonorte nos ayudó a posicionarnos en Google y a reactivar antiguos clientes que ya nos conocían."
-        </blockquote>
+        <blockquote>"No queríamos redes sociales, queríamos socios. Activonorte nos ayudó a posicionarnos en Google y a reactivar antiguos clientes que ya nos conocían."</blockquote>
         <div class="testimonial-author">Javier Ruiz</div>
         <div class="testimonial-role">Gerente · Gimnasio CostaFit (Cantabria)</div>
       </div>
@@ -506,7 +662,7 @@
           <h3>Pack Dominio Local</h3>
           <p>Te posicionamos como el gimnasio de referencia en Google y tu zona.</p>
           <div class="price">Consultar</div>
-          <!-- ✅ btn-loader activa la pantalla de carga -->
+          <!-- ✅ btn-loader: activa la pantalla de carga premium -->
           <a href="https://wa.me/34610387276?text=Hola%20quiero%20información%20del%20Pack%20Dominio%20Local"
              class="btn-card btn-loader">Pedir Info</a>
         </div>
@@ -565,6 +721,27 @@
   const mobileNav = document.getElementById('mobile-nav');
   menuBtn.addEventListener('click', () => mobileNav.classList.toggle('open'));
 
+  /* ── NAV LINKS → scroll suave simple (sin loader) ────────── */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (!targetId || targetId === '#') {
+        e.preventDefault();
+        mobileNav.classList.remove('open');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      const target = document.querySelector(targetId);
+      if (!target) return;
+      e.preventDefault();
+      mobileNav.classList.remove('open');
+      window.scrollTo({
+        top: target.getBoundingClientRect().top + window.scrollY - 64,
+        behavior: 'smooth'
+      });
+    });
+  });
+
   /* ── SCROLL REVEAL ───────────────────────────────────────── */
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -576,41 +753,27 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  /* ── LOADER ──────────────────────────────────────────────── */
-  const loader = document.getElementById('page-loader');
+  /* ── LOADER PREMIUM ──────────────────────────────────────── */
+  const loader    = document.getElementById('page-loader');
+  const loaderBar = document.getElementById('loader-bar');
 
   function showLoader(callback) {
-    loader.classList.add('active');
+    // Resetea la barra antes de animar
+    loaderBar.style.animation = 'none';
+    loaderBar.offsetHeight;              // fuerza reflow
+    loaderBar.style.animation = '';
+
+    loader.classList.add('active');      // fade in (300ms CSS)
+
     setTimeout(() => {
-      callback();
-      setTimeout(() => loader.classList.remove('active'), 160);
-    }, 240);
+      callback();                        // abre el enlace externo
+      setTimeout(() => {
+        loader.classList.remove('active'); // fade out (300ms CSS)
+      }, 380);
+    }, 1050);                            // visible ~1.35s total
   }
 
-  /* ── NAV LINKS → scroll con loader ──────────────────────── */
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const targetId = this.getAttribute('href');
-      if (!targetId || targetId === '#') {
-        e.preventDefault();
-        mobileNav.classList.remove('open');
-        showLoader(() => window.scrollTo({ top: 0, behavior: 'instant' }));
-        return;
-      }
-      const target = document.querySelector(targetId);
-      if (!target) return;
-      e.preventDefault();
-      mobileNav.classList.remove('open');
-      showLoader(() => {
-        window.scrollTo({
-          top: target.getBoundingClientRect().top + window.scrollY - 64,
-          behavior: 'instant'
-        });
-      });
-    });
-  });
-
-  /* ── BOTÓN "PEDIR INFO" → abre WhatsApp con loader ──────── */
+  /* ── BOTÓN "PEDIR INFO" → loader premium ─────────────────── */
   document.querySelectorAll('.btn-loader').forEach(btn => {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
