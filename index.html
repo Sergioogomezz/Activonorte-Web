@@ -83,19 +83,10 @@
     .hamburger { display: none; cursor: pointer; background: none; border: none; padding: 4px; }
     .hamburger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; transition: all 0.3s; }
 
-    /* ════════ MOBILE NAV — CORRECCIÓN STICKY ════════
-       Problema anterior: el #mobile-nav estaba en el flujo
-       normal del documento. Al hacer scroll, el header se
-       quedaba pegado arriba pero el menú desplegable
-       desaparecía con el contenido de la página.
-       Solución: hacerlo también sticky, justo debajo del header.
-    ══════════════════════════════════════════════════════ */
+    /* ════════ MOBILE NAV — STICKY ════════ */
     #mobile-nav {
-      display: none;
-      flex-direction: column;
-      position: sticky;          /* ← CLAVE: sticky igual que el header */
-      top: 60px;                 /* ← pegado justo bajo el header       */
-      z-index: 99;               /* ← por debajo del header (z:100)     */
+      display: none; flex-direction: column;
+      position: sticky; top: 60px; z-index: 99;
       background: var(--teal-dark);
       padding: 16px 24px 20px;
       border-top: 1px solid rgba(255,255,255,0.1);
@@ -422,53 +413,48 @@
   document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
   /* ══════════════════════════════════════════════════════════
-     LOADER — SOLUCIÓN DEFINITIVA MÓVIL + ESCRITORIO
+     LOADER — NUEVA PESTAÑA EN MÓVIL Y ESCRITORIO
 
-     Detección fiable de móvil:
-       User Agent + presencia de eventos táctiles reales
-     
-     Móvil  → window.location.href
-              El SO intercepta wa.me y abre la app de WhatsApp.
-              El navegador NO abandona la página web.
-     
-     Escritorio → window.open() SÍNCRONO en el clic
-              El navegador permite abrir pestañas cuando hay
-              un gesto de usuario activo (no hay setTimeout).
-              Después de la animación navegamos esa pestaña.
+     La clave es que window.open() se llama SÍNCRONAMENTE
+     dentro del handler del clic, cuando el navegador
+     considera que hay un gesto de usuario activo.
+     Tanto iOS Safari como Android Chrome permiten esto.
+
+     Flujo:
+     1. Clic → window.open('','_blank') → pestaña vacía abierta
+     2. Loader aparece con animación completa (1050ms)
+     3. Loader navega esa pestaña ya abierta a WhatsApp
+     4. Loader desaparece
+
+     Si por algún motivo el popup fuese bloqueado (bloqueador
+     muy estricto), el fallback navega en la misma pestaña.
   ══════════════════════════════════════════════════════════ */
   const loader    = document.getElementById('page-loader');
   const loaderBar = document.getElementById('loader-bar');
 
-  function esMobil() {
-    const ua = navigator.userAgent || '';
-    const tieneTouch = ('ontouchstart' in window) && (navigator.maxTouchPoints > 0);
-    const esDispositivoMovil = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
-    return esDispositivoMovil || (tieneTouch && window.innerWidth <= 1024);
-  }
-
   function showLoader(url) {
-    let nuevaPestana = null;
+    /* PASO 1 — Abrir pestaña nueva SÍNCRONAMENTE.
+       Se llama aquí, antes de cualquier setTimeout,
+       por lo que el navegador lo trata como acción
+       directa del usuario y NO lo bloquea. */
+    const nuevaPestana = window.open('', '_blank');
 
-    if (!esMobil()) {
-      /* ESCRITORIO — pestaña abierta síncronamente = no bloqueada */
-      nuevaPestana = window.open('', '_blank');
-    }
-
-    /* Reinicia y activa la barra de progreso */
+    /* PASO 2 — Reiniciar la barra y mostrar loader */
     loaderBar.style.animation = 'none';
     loaderBar.offsetHeight;
     loaderBar.style.animation = '';
     loader.classList.add('active');
 
+    /* PASO 3 — Tras 1 segundo de animación, navegar */
     setTimeout(() => {
       if (nuevaPestana && !nuevaPestana.closed) {
-        /* Escritorio: navega la pestaña ya abierta */
+        /* Caso normal: navegar la pestaña ya abierta */
         nuevaPestana.location.href = url;
       } else {
-        /* Móvil: navega en la misma pestaña.
-           iOS/Android abre WhatsApp y el navegador permanece. */
+        /* Fallback: si el popup fue bloqueado, misma pestaña */
         window.location.href = url;
       }
+      /* PASO 4 — Ocultar loader */
       setTimeout(() => { loader.classList.remove('active'); }, 500);
     }, 1050);
   }
