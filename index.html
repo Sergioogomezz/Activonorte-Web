@@ -1,642 +1,745 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Activonorte | Marketing para Gimnasios</title>
-  <meta name="description" content="Llenamos tu gimnasio de socios reales. Consultoría de Marketing Deportivo en Cantabria." />
-  <link rel="icon" href="Logoazul.png" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; font-size: 16px; }
-    body { font-family: 'Inter', 'Segoe UI', sans-serif; color: #222; background: #fff; line-height: 1.6; overflow-x: hidden; }
-    a { text-decoration: none; color: inherit; }
-    img { display: block; max-width: 100%; }
-    :root {
-      --teal: #003b46; --teal-dark: #002d35;
-      --orange: #e05e00; --orange-h: #c75300;
-      --light: #f4f4f4; --text: #333; --muted: #666;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Activonorte | Marketing para Gimnasios</title>
+<meta name="description" content="Llenamos tu gimnasio de socios reales. Consultoría de Marketing Deportivo en Cantabria." />
+<link rel="icon" href="Logoazul.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: 'Inter', 'Segoe UI', sans-serif; color: #222; background: #fff; line-height: 1.6; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+:root {
+--teal: #003b46; --teal-dark: #002d35;
+--orange: #e05e00; --orange-h: #c75300;
+--light: #f4f4f4; --text: #333; --muted: #666;
+}
 
-    /* ════════ LOADER PREMIUM ════════ */
-    #page-loader {
-      position: fixed; inset: 0; z-index: 9999;
-      background: radial-gradient(ellipse at center, #004f60 0%, #003b46 45%, #001e25 100%);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none; transition: opacity 0.3s ease; overflow: hidden;
-    }
-    #page-loader.active { opacity: 1; pointer-events: all; }
-    #page-loader::before {
-      content: ''; position: absolute; inset: 0;
-      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 40px 40px; pointer-events: none;
-    }
-    .loader-ring { position: absolute; border-radius: 50%; border: 1px solid rgba(224,94,0,0.2); animation: ringExpand 2.4s ease-out infinite; pointer-events: none; }
-    .loader-ring:nth-child(1) { width: 180px; height: 180px; animation-delay: 0s; }
-    .loader-ring:nth-child(2) { width: 300px; height: 300px; animation-delay: 0.6s; }
-    .loader-ring:nth-child(3) { width: 440px; height: 440px; animation-delay: 1.2s; }
-    @keyframes ringExpand { 0% { opacity: 0.7; transform: scale(0.75); } 100% { opacity: 0; transform: scale(1.15); } }
-    #loader-center { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 28px; animation: centerReveal 0.5s cubic-bezier(0.34, 1.4, 0.64, 1) forwards; }
-    @keyframes centerReveal { 0% { opacity: 0; transform: scale(0.75) translateY(12px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
-    #loader-logo-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
-    #loader-logo-wrap::before { content: ''; position: absolute; width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, rgba(224,94,0,0.18) 0%, transparent 70%); animation: haloPulse 1.8s ease-in-out infinite; }
-    @keyframes haloPulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.15); opacity: 1; } }
-    #loader-logo { width: 88px; height: auto; position: relative; z-index: 1; filter: drop-shadow(0 0 18px rgba(224,94,0,0.35)); }
-    #loader-divider { width: 40px; height: 2px; background: linear-gradient(90deg, transparent, #e05e00, transparent); border-radius: 2px; animation: dividerGrow 0.6s ease 0.2s both; }
-    @keyframes dividerGrow { from { width: 0; opacity: 0; } to { width: 40px; opacity: 1; } }
-    #loader-tagline { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.65); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; animation: fadeInUp 0.5s ease 0.25s both; }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-    .loader-dots { display: flex; align-items: center; gap: 5px; }
-    .loader-dots span { display: block; width: 5px; height: 5px; border-radius: 50%; background: #e05e00; animation: dotBounce 1.2s ease-in-out infinite; }
-    .loader-dots span:nth-child(2) { animation-delay: 0.2s; }
-    .loader-dots span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes dotBounce { 0%, 100% { transform: translateY(0); opacity: 0.35; } 50% { transform: translateY(-5px); opacity: 1; } }
-    #loader-bar-wrap { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.08); }
-    #loader-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #e05e00, #ff8c38); border-radius: 0 2px 2px 0; }
-    #page-loader.active #loader-bar { animation: barFill 1s linear forwards; }
-    @keyframes barFill { from { width: 0%; } to { width: 100%; } }
-    #loader-version { position: absolute; bottom: 18px; right: 20px; font-size: 0.65rem; color: rgba(255,255,255,0.15); letter-spacing: 0.1em; font-family: monospace; }
+/* ════════ LOADER PREMIUM ════════ */
+#page-loader {
+position: fixed; inset: 0; z-index: 9999;
+background: radial-gradient(ellipse at center, #004f60 0%, #003b46 45%, #001e25 100%);
+display: flex; flex-direction: column; align-items: center; justify-content: center;
+opacity: 0; pointer-events: none; transition: opacity 0.3s ease; overflow: hidden;
+}
+#page-loader.active { opacity: 1; pointer-events: all; }
+#page-loader::before {
+content: ''; position: absolute; inset: 0;
+background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+background-size: 40px 40px; pointer-events: none;
+}
+.loader-ring { position: absolute; border-radius: 50%; border: 1px solid rgba(224,94,0,0.2); animation: ringExpand 2.4s ease-out infinite; pointer-events: none; }
+.loader-ring:nth-child(1) { width: 180px; height: 180px; animation-delay: 0s; }
+.loader-ring:nth-child(2) { width: 300px; height: 300px; animation-delay: 0.6s; }
+.loader-ring:nth-child(3) { width: 440px; height: 440px; animation-delay: 1.2s; }
+@keyframes ringExpand { 0% { opacity: 0.7; transform: scale(0.75); } 100% { opacity: 0; transform: scale(1.15); } }
+#loader-center { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 28px; animation: centerReveal 0.5s cubic-bezier(0.34, 1.4, 0.64, 1) forwards; }
+@keyframes centerReveal { 0% { opacity: 0; transform: scale(0.75) translateY(12px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+#loader-logo-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+#loader-logo-wrap::before { content: ''; position: absolute; width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, rgba(224,94,0,0.18) 0%, transparent 70%); animation: haloPulse 1.8s ease-in-out infinite; }
+@keyframes haloPulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.15); opacity: 1; } }
+#loader-logo { width: 88px; height: auto; position: relative; z-index: 1; filter: drop-shadow(0 0 18px rgba(224,94,0,0.35)); }
+#loader-divider { width: 40px; height: 2px; background: linear-gradient(90deg, transparent, #e05e00, transparent); border-radius: 2px; animation: dividerGrow 0.6s ease 0.2s both; }
+@keyframes dividerGrow { from { width: 0; opacity: 0; } to { width: 40px; opacity: 1; } }
+#loader-tagline { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.65); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; animation: fadeInUp 0.5s ease 0.25s both; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.loader-dots { display: flex; align-items: center; gap: 5px; }
+.loader-dots span { display: block; width: 5px; height: 5px; border-radius: 50%; background: #e05e00; animation: dotBounce 1.2s ease-in-out infinite; }
+.loader-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loader-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dotBounce { 0%, 100% { transform: translateY(0); opacity: 0.35; } 50% { transform: translateY(-5px); opacity: 1; } }
+#loader-bar-wrap { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.08); }
+#loader-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #e05e00, #ff8c38); border-radius: 0 2px 2px 0; }
+#page-loader.active #loader-bar { animation: barFill 1s linear forwards; }
+@keyframes barFill { from { width: 0%; } to { width: 100%; } }
+#loader-version { position: absolute; bottom: 18px; right: 20px; font-size: 0.65rem; color: rgba(255,255,255,0.15); letter-spacing: 0.1em; font-family: monospace; }
 
-    /* ════════ REVEAL ════════ */
-    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.65s ease, transform 0.65s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
+/* ════════ REVEAL ════════ */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
 
-    /* ════════ HEADER ════════ */
-    header { position: sticky; top: 0; z-index: 100; background: var(--teal); padding: 0 40px; height: 60px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 16px rgba(0,0,0,0.25); }
-    .logo { font-size: 1.25rem; font-weight: 900; color: #fff; letter-spacing: 1.5px; text-transform: uppercase; }
-    nav { display: flex; align-items: center; gap: 32px; }
-    nav a { color: rgba(255,255,255,0.88); font-weight: 600; font-size: 0.95rem; position: relative; transition: color 0.2s; }
-    nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--orange); transition: width 0.25s ease; }
-    nav a:hover { color: #fff; }
-    nav a:hover::after { width: 100%; }
-    .hamburger { display: none; cursor: pointer; background: none; border: none; padding: 4px; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; transition: all 0.3s; }
-    #mobile-nav { display: none; flex-direction: column; position: sticky; top: 60px; z-index: 99; background: var(--teal-dark); padding: 16px 24px 20px; border-top: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
-    #mobile-nav.open { display: flex; }
-    #mobile-nav a { color: rgba(255,255,255,0.85); font-weight: 600; font-size: 1rem; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
-    #mobile-nav a:last-child { border-bottom: none; }
+/* ════════ HEADER ════════ */
+header { position: sticky; top: 0; z-index: 100; background: var(--teal); padding: 0 40px; height: 60px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 16px rgba(0,0,0,0.25); }
+.logo { font-size: 1.25rem; font-weight: 900; color: #fff; letter-spacing: 1.5px; text-transform: uppercase; }
+nav { display: flex; align-items: center; gap: 32px; }
+nav a { color: rgba(255,255,255,0.88); font-weight: 600; font-size: 0.95rem; position: relative; transition: color 0.2s; }
+nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--orange); transition: width 0.25s ease; }
+nav a:hover { color: #fff; }
+nav a:hover::after { width: 100%; }
+.hamburger { display: none; cursor: pointer; background: none; border: none; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; transition: all 0.3s; }
+#mobile-nav { display: none; flex-direction: column; position: sticky; top: 60px; z-index: 99; background: var(--teal-dark); padding: 16px 24px 20px; border-top: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+#mobile-nav.open { display: flex; }
+#mobile-nav a { color: rgba(255,255,255,0.85); font-weight: 600; font-size: 1rem; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+#mobile-nav a:last-child { border-bottom: none; }
 
-    /* ════════ HERO ════════ */
-    .hero { position: relative; height: calc(100vh - 60px); min-height: 480px; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
-    .hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1558611848-73f7eb4001a1?auto=format&fit=crop&w=1800&q=80'); background-size: cover; background-position: center; transform: scale(1.05); transition: transform 12s ease-out; }
-    .hero-bg.loaded { transform: scale(1); }
-    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,30,36,0.62) 0%, rgba(0,20,26,0.55) 60%, rgba(0,10,15,0.70) 100%); }
-    .hero-content { position: relative; z-index: 2; max-width: 760px; padding: 0 24px; }
-    .hero-content h1 { font-size: clamp(2rem, 5.5vw, 3.6rem); font-weight: 900; color: #fff; line-height: 1.1; letter-spacing: -0.5px; margin-bottom: 20px; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
-    .hero-content p { font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(255,255,255,0.85); max-width: 540px; margin: 0 auto 36px; text-shadow: 0 1px 8px rgba(0,0,0,0.3); }
-    .btn-primary { display: inline-block; background: var(--orange); color: #fff; font-weight: 700; font-size: 1rem; padding: 14px 36px; border-radius: 6px; cursor: pointer; border: none; transition: background 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease; box-shadow: 0 4px 18px rgba(224,94,0,0.35); }
-    .btn-primary:hover { background: var(--orange-h); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(224,94,0,0.45); }
-    .btn-primary:active { transform: translateY(0); }
-    .scroll-hint { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: 0.5; animation: scrollBounce 2.5s ease-in-out infinite; }
-    .scroll-hint span { color: #fff; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; }
-    .scroll-hint svg { color: #fff; }
-    @keyframes scrollBounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(7px); } }
+/* ════════ HERO ════════ */
+.hero { position: relative; height: calc(100vh - 60px); min-height: 480px; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1558611848-73f7eb4001a1?auto=format&fit=crop&w=1800&q=80'); background-size: cover; background-position: center; transform: scale(1.05); transition: transform 12s ease-out; }
+.hero-bg.loaded { transform: scale(1); }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,30,36,0.62) 0%, rgba(0,20,26,0.55) 60%, rgba(0,10,15,0.70) 100%); }
+.hero-content { position: relative; z-index: 2; max-width: 760px; padding: 0 24px; }
+.hero-content h1 { font-size: clamp(2rem, 5.5vw, 3.6rem); font-weight: 900; color: #fff; line-height: 1.1; letter-spacing: -0.5px; margin-bottom: 20px; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+.hero-content p { font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(255,255,255,0.85); max-width: 540px; margin: 0 auto 36px; text-shadow: 0 1px 8px rgba(0,0,0,0.3); }
+.btn-primary { display: inline-block; background: var(--orange); color: #fff; font-weight: 700; font-size: 1rem; padding: 14px 36px; border-radius: 6px; cursor: pointer; border: none; transition: background 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease; box-shadow: 0 4px 18px rgba(224,94,0,0.35); }
+.btn-primary:hover { background: var(--orange-h); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(224,94,0,0.45); }
+.btn-primary:active { transform: translateY(0); }
+.scroll-hint { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: 0.5; animation: scrollBounce 2.5s ease-in-out infinite; }
+.scroll-hint span { color: #fff; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.scroll-hint svg { color: #fff; }
+@keyframes scrollBounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(7px); } }
 
-    /* ════════ SECTIONS ════════ */
-    section { padding: 80px 40px; }
-    .section-title { text-align: center; font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800; color: var(--teal); margin-bottom: 52px; letter-spacing: -0.3px; }
-    .container { max-width: 1140px; margin: 0 auto; }
-    #agencia { background: #fff; }
-    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .feature-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 10px; padding: 32px 28px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.06); transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease; }
-    .feature-card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(0,0,0,0.11); border-color: var(--orange); }
-    .feature-icon { width: 52px; height: 52px; border-radius: 50%; background: rgba(0,59,70,0.08); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; transition: background 0.25s; }
-    .feature-card:hover .feature-icon { background: rgba(224,94,0,0.1); }
-    .feature-icon svg { width: 26px; height: 26px; color: var(--teal); transition: color 0.25s; }
-    .feature-card:hover .feature-icon svg { color: var(--orange); }
-    .feature-card h3 { color: var(--teal); font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
-    .feature-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
-    #testimonios { background: var(--light); }
-    .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .pillar-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 14px; padding: 32px 28px; text-align: left; box-shadow: 0 2px 12px rgba(0,0,0,0.07); transition: all 0.3s ease; }
-    .pillar-card:hover { transform: translateY(-8px); box-shadow: 0 20px 30px -10px rgba(0,0,0,0.16), 0 10px 15px -5px rgba(0,0,0,0.08); }
-    .pillar-icon { width: 58px; height: 58px; border-radius: 14px; background: rgba(0,59,70,0.07); display: flex; align-items: center; justify-content: center; margin-bottom: 22px; transition: all 0.3s ease; }
-    .pillar-card:hover .pillar-icon { background: rgba(224,94,0,0.10); transform: scale(1.04); }
-    .pillar-icon svg { width: 29px; height: 29px; color: var(--teal); transition: color 0.3s ease; }
-    .pillar-card:hover .pillar-icon svg { color: var(--orange); }
-    .pillar-card h3 { color: var(--teal); font-size: 1.12rem; font-weight: 800; margin-bottom: 12px; }
-    .pillar-card p { color: var(--muted); font-size: 0.93rem; line-height: 1.7; }
-    #servicios { background: #fff; }
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .service-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.07); display: flex; flex-direction: column; transition: transform 0.28s ease, box-shadow 0.28s ease; }
-    .service-card:hover { transform: translateY(-7px); box-shadow: 0 18px 48px rgba(0,0,0,0.13); }
-    .service-card-img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.5s ease; }
-    .service-card:hover .service-card-img { transform: scale(1.04); }
-    .service-card-img-wrap { overflow: hidden; }
-    .service-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
-    .service-card-body h3 { color: var(--teal); font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
-    .service-card-body p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; flex: 1; margin-bottom: 14px; }
-    .price { color: var(--orange); font-size: 1.4rem; font-weight: 800; margin-bottom: 18px; }
-    .btn-card { display: block; width: 100%; background: var(--orange); color: #fff; font-weight: 700; font-size: 0.95rem; padding: 13px 0; border-radius: 6px; text-align: center; border: none; cursor: pointer; transition: background 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease; box-shadow: 0 3px 12px rgba(224,94,0,0.25); margin-top: auto; }
-    .btn-card:hover { background: var(--orange-h); transform: translateY(-2px); box-shadow: 0 7px 22px rgba(224,94,0,0.38); }
-    #contacto { background: var(--teal); padding: 72px 40px; text-align: center; }
-    #contacto h2 { color: #fff; font-size: clamp(1.7rem, 3.5vw, 2.4rem); font-weight: 900; margin-bottom: 14px; letter-spacing: -0.3px; }
-    #contacto p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 520px; margin: 0 auto 32px; }
-    #contacto .btn-primary { font-size: 1.05rem; padding: 16px 44px; }
-    footer { background: var(--teal-dark); padding: 24px 40px; text-align: center; }
-    footer p { color: rgba(255,255,255,0.55); font-size: 0.85rem; }
-    @media (max-width: 900px) {
-      .features-grid, .pillars-grid, .services-grid { grid-template-columns: 1fr; }
-      header { padding: 0 20px; } nav { display: none; } .hamburger { display: block; }
-      section { padding: 60px 20px; } #contacto { padding: 60px 20px; }
-    }
-    @media (max-width: 480px) { .hero-content h1 { font-size: 1.9rem; } .pillar-card { padding: 28px 24px; } }
+/* ════════ SECTIONS ════════ */
+section { padding: 80px 40px; }
+.section-title { text-align: center; font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800; color: var(--teal); margin-bottom: 52px; letter-spacing: -0.3px; }
+.container { max-width: 1140px; margin: 0 auto; }
+#agencia { background: #fff; }
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.feature-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 10px; padding: 32px 28px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.06); transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease; }
+.feature-card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(0,0,0,0.11); border-color: var(--orange); }
+.feature-icon { width: 52px; height: 52px; border-radius: 50%; background: rgba(0,59,70,0.08); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; transition: background 0.25s; }
+.feature-card:hover .feature-icon { background: rgba(224,94,0,0.1); }
+.feature-icon svg { width: 26px; height: 26px; color: var(--teal); transition: color 0.25s; }
+.feature-card:hover .feature-icon svg { color: var(--orange); }
+.feature-card h3 { color: var(--teal); font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+.feature-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
+#testimonios { background: var(--light); }
+.pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.pillar-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 14px; padding: 32px 28px; text-align: left; box-shadow: 0 2px 12px rgba(0,0,0,0.07); transition: all 0.3s ease; }
+.pillar-card:hover { transform: translateY(-8px); box-shadow: 0 20px 30px -10px rgba(0,0,0,0.16), 0 10px 15px -5px rgba(0,0,0,0.08); }
+.pillar-icon { width: 58px; height: 58px; border-radius: 14px; background: rgba(0,59,70,0.07); display: flex; align-items: center; justify-content: center; margin-bottom: 22px; transition: all 0.3s ease; }
+.pillar-card:hover .pillar-icon { background: rgba(224,94,0,0.10); transform: scale(1.04); }
+.pillar-icon svg { width: 29px; height: 29px; color: var(--teal); transition: color 0.3s ease; }
+.pillar-card:hover .pillar-icon svg { color: var(--orange); }
+.pillar-card h3 { color: var(--teal); font-size: 1.12rem; font-weight: 800; margin-bottom: 12px; }
+.pillar-card p { color: var(--muted); font-size: 0.93rem; line-height: 1.7; }
+#servicios { background: #fff; }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.service-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.07); display: flex; flex-direction: column; transition: transform 0.28s ease, box-shadow 0.28s ease; }
+.service-card:hover { transform: translateY(-7px); box-shadow: 0 18px 48px rgba(0,0,0,0.13); }
+.service-card-img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.5s ease; }
+.service-card:hover .service-card-img { transform: scale(1.04); }
+.service-card-img-wrap { overflow: hidden; }
+.service-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+.service-card-body h3 { color: var(--teal); font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+.service-card-body p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; flex: 1; margin-bottom: 14px; }
+.price { color: var(--orange); font-size: 1.4rem; font-weight: 800; margin-bottom: 18px; }
+.btn-card { display: block; width: 100%; background: var(--orange); color: #fff; font-weight: 700; font-size: 0.95rem; padding: 13px 0; border-radius: 6px; text-align: center; border: none; cursor: pointer; transition: background 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease; box-shadow: 0 3px 12px rgba(224,94,0,0.25); margin-top: auto; }
+.btn-card:hover { background: var(--orange-h); transform: translateY(-2px); box-shadow: 0 7px 22px rgba(224,94,0,0.38); }
+#contacto { background: var(--teal); padding: 72px 40px; text-align: center; }
+#contacto h2 { color: #fff; font-size: clamp(1.7rem, 3.5vw, 2.4rem); font-weight: 900; margin-bottom: 14px; letter-spacing: -0.3px; }
+#contacto p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 520px; margin: 0 auto 32px; }
+#contacto .btn-primary { font-size: 1.05rem; padding: 16px 44px; }
+footer { background: var(--teal-dark); padding: 24px 40px; text-align: center; }
+footer p { color: rgba(255,255,255,0.55); font-size: 0.85rem; }
+@media (max-width: 900px) {
+.features-grid, .pillars-grid, .services-grid { grid-template-columns: 1fr; }
+header { padding: 0 20px; } nav { display: none; } .hamburger { display: block; }
+section { padding: 60px 20px; } #contacto { padding: 60px 20px; }
+}
+@media (max-width: 480px) { .hero-content h1 { font-size: 1.9rem; } .pillar-card { padding: 28px 24px; } }
 
-    /* ════════ MODALES ════════ */
-    .modal-overlay {
-      position: fixed; inset: 0; z-index: 500;
-      background: rgba(0,0,0,0.65);
-      backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
-      display: flex; align-items: center; justify-content: center; padding: 20px;
-      opacity: 0; pointer-events: none; transition: opacity 0.28s ease;
-    }
-    .modal-overlay.active { opacity: 1; pointer-events: all; }
-    .modal-box {
-      background: #fff; border-radius: 20px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.28);
-      width: 100%; max-width: 660px; max-height: 90vh; overflow-y: auto;
-      position: relative;
-      transform: scale(0.9) translateY(20px);
-      transition: transform 0.32s cubic-bezier(0.34, 1.3, 0.64, 1);
-    }
-    .modal-overlay.active .modal-box { transform: scale(1) translateY(0); }
-    .modal-header { padding: 26px 26px 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-    .modal-header-text { flex: 1; }
-    .modal-tag { display: inline-block; background: rgba(0,59,70,0.08); color: var(--teal); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 8px; }
-    .modal-title { font-size: 1.45rem; font-weight: 900; color: #0f172a; line-height: 1.2; }
-    .modal-close { background: #f1f5f9; border: none; cursor: pointer; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #64748b; flex-shrink: 0; transition: background 0.2s, color 0.2s; }
-    .modal-close:hover { background: #e2e8f0; color: #0f172a; }
-    .modal-body { padding: 18px 26px 26px; }
-    .modal-block { margin-bottom: 18px; }
-    .modal-block-label { font-size: 0.67rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-    .modal-block-label::after { content: ''; flex: 1; height: 1px; background: rgba(224,94,0,0.18); }
-    .modal-block p { color: #475569; font-size: 0.92rem; line-height: 1.68; }
-    .modal-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .modal-list li { display: flex; align-items: flex-start; gap: 10px; color: #334155; font-size: 0.91rem; line-height: 1.5; }
-    .modal-check { flex-shrink: 0; width: 20px; height: 20px; margin-top: 1px; background: rgba(224,94,0,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-    .modal-check svg { width: 10px; height: 10px; color: var(--orange); }
-    .modal-divider { height: 1px; background: #f1f5f9; margin: 18px 0; }
-    .modal-cta { display: block; width: 100%; background: var(--orange); color: #fff; font-weight: 700; font-size: 1rem; padding: 15px 0; border-radius: 8px; text-align: center; border: none; cursor: pointer; transition: background 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease; box-shadow: 0 4px 18px rgba(224,94,0,0.35); }
-    .modal-cta:hover { background: var(--orange-h); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(224,94,0,0.45); }
-    .modal-cta:active { transform: translateY(0); }
-    @media (max-width: 600px) { .modal-header { padding: 18px 18px 0; } .modal-body { padding: 14px 18px 20px; } .modal-title { font-size: 1.15rem; } }
-  </style>
+/* ════════ MODALES ════════ */
+.modal-overlay {
+position: fixed; inset: 0; z-index: 500;
+background: rgba(0,0,0,0.65);
+backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+display: flex; align-items: center; justify-content: center; padding: 20px;
+opacity: 0; pointer-events: none; transition: opacity 0.28s ease;
+}
+.modal-overlay.active { opacity: 1; pointer-events: all; }
+.modal-box {
+background: #fff; border-radius: 20px;
+box-shadow: 0 30px 80px rgba(0,0,0,0.28);
+width: 100%; max-width: 660px; max-height: 90vh; overflow-y: auto;
+position: relative;
+transform: scale(0.9) translateY(20px);
+transition: transform 0.32s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+.modal-overlay.active .modal-box { transform: scale(1) translateY(0); }
+.modal-header { padding: 26px 26px 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.modal-header-text { flex: 1; }
+.modal-tag { display: inline-block; background: rgba(0,59,70,0.08); color: var(--teal); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 8px; }
+.modal-title { font-size: 1.45rem; font-weight: 900; color: #0f172a; line-height: 1.2; }
+.modal-close { background: #f1f5f9; border: none; cursor: pointer; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #64748b; flex-shrink: 0; transition: background 0.2s, color 0.2s; }
+.modal-close:hover { background: #e2e8f0; color: #0f172a; }
+.modal-body { padding: 18px 26px 26px; }
+.modal-block { margin-bottom: 18px; }
+.modal-block-label { font-size: 0.67rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.modal-block-label::after { content: ''; flex: 1; height: 1px; background: rgba(224,94,0,0.18); }
+.modal-block p { color: #475569; font-size: 0.92rem; line-height: 1.68; }
+.modal-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.modal-list li { display: flex; align-items: flex-start; gap: 10px; color: #334155; font-size: 0.91rem; line-height: 1.5; }
+.modal-check { flex-shrink: 0; width: 20px; height: 20px; margin-top: 1px; background: rgba(224,94,0,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.modal-check svg { width: 10px; height: 10px; color: var(--orange); }
+.modal-divider { height: 1px; background: #f1f5f9; margin: 18px 0; }
+.modal-cta { display: block; width: 100%; background: var(--orange); color: #fff; font-weight: 700; font-size: 1rem; padding: 15px 0; border-radius: 8px; text-align: center; border: none; cursor: pointer; transition: background 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease; box-shadow: 0 4px 18px rgba(224,94,0,0.35); }
+.modal-cta:hover { background: var(--orange-h); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(224,94,0,0.45); }
+.modal-cta:active { transform: translateY(0); }
+@media (max-width: 600px) { .modal-header { padding: 18px 18px 0; } .modal-body { padding: 14px 18px 20px; } .modal-title { font-size: 1.15rem; } }
+
+/* ════════ AGENTE SETTER B2B · ACTIVONORTE ════════ */
+.an-setter-trigger{position:fixed!important;bottom:24px!important;right:24px!important;z-index:2147483647!important;background:#003b46!important;color:#ffffff!important;border:2px solid #e05e00!important;border-radius:999px!important;padding:14px 22px!important;font-family:'Inter',Arial,Helvetica,sans-serif!important;font-size:14px!important;font-weight:800!important;display:flex!important;align-items:center!important;gap:10px!important;cursor:pointer!important;box-shadow:0 12px 30px rgba(0,0,0,0.35)!important;transition:transform 0.2s ease,background 0.2s ease!important;}
+.an-setter-trigger:hover{transform:translateY(-2px)!important;background:#e05e00!important;border-color:#ffffff!important;}
+.an-setter-dot{width:10px!important;height:10px!important;background:#22c55e!important;border-radius:50%!important;box-shadow:0 0 0 4px rgba(34,197,94,0.3)!important;flex-shrink:0!important;}
+.an-setter-window{position:fixed!important;bottom:88px!important;right:24px!important;z-index:2147483647!important;width:min(420px,calc(100vw - 32px))!important;height:550px!important;max-height:calc(100vh - 120px)!important;background:#ffffff!important;border:2px solid #003b46!important;border-radius:20px!important;box-shadow:0 25px 60px rgba(0,0,0,0.45)!important;display:none!important;flex-direction:column!important;overflow:hidden!important;font-family:'Inter',Arial,Helvetica,sans-serif!important;}
+.an-setter-window.open{display:flex!important;}
+.an-setter-header{background:#003b46!important;color:#ffffff!important;padding:16px 20px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;border-bottom:3px solid #e05e00!important;flex-shrink:0!important;}
+.an-setter-header-info h4{font-size:16px!important;font-weight:800!important;color:#ffffff!important;margin:0 0 3px 0!important;line-height:1.2!important;}
+.an-setter-header-info span{font-size:11px!important;color:#ffb07a!important;text-transform:uppercase!important;letter-spacing:0.06em!important;font-weight:700!important;display:block!important;}
+.an-setter-close{background:rgba(255,255,255,0.18)!important;color:#ffffff!important;border:1px solid rgba(255,255,255,0.35)!important;width:32px!important;height:32px!important;border-radius:8px!important;cursor:pointer!important;font-weight:900!important;font-size:14px!important;display:flex!important;align-items:center!important;justify-content:center!important;}
+.an-setter-close:hover{background:#e05e00!important;}
+.an-setter-chips{padding:10px 14px!important;background:#e9f1f2!important;border-bottom:1px solid #cbd5e1!important;display:flex!important;gap:8px!important;overflow-x:auto!important;flex-shrink:0!important;}
+.an-setter-chip{background:#ffffff!important;color:#003b46!important;border:1px solid #003b46!important;padding:6px 12px!important;border-radius:999px!important;font-size:12px!important;font-weight:700!important;white-space:nowrap!important;cursor:pointer!important;transition:0.15s ease!important;}
+.an-setter-chip:hover{background:#e05e00!important;color:#ffffff!important;border-color:#e05e00!important;}
+.an-setter-messages{padding:16px!important;overflow-y:auto!important;flex:1!important;display:flex!important;flex-direction:column!important;gap:12px!important;background:#f1f5f9!important;}
+.an-s-msg{padding:12px 15px!important;border-radius:14px!important;font-size:13.5px!important;line-height:1.55!important;max-width:92%!important;word-wrap:break-word!important;text-align:left!important;}
+.an-s-msg.bot{background:#ffffff!important;border:1px solid #cbd5e1!important;color:#0f172a!important;align-self:flex-start!important;box-shadow:0 2px 6px rgba(0,0,0,0.06)!important;}
+.an-s-msg.bot strong{color:#003b46!important;font-weight:800!important;}
+.an-s-msg.user{background:#003b46!important;color:#ffffff!important;align-self:flex-end!important;font-weight:600!important;box-shadow:0 2px 6px rgba(0,59,70,0.25)!important;}
+.an-wa-cta{margin-top:10px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;width:100%!important;background:#16a34a!important;color:#ffffff!important;text-decoration:none!important;padding:9px 14px!important;border-radius:8px!important;font-size:12.5px!important;font-weight:800!important;cursor:pointer!important;transition:background 0.2s ease!important;}
+.an-wa-cta:hover{background:#15803d!important;}
+.an-setter-input-area{padding:12px!important;background:#ffffff!important;border-top:1px solid #cbd5e1!important;display:flex!important;gap:8px!important;flex-shrink:0!important;}
+.an-setter-input{flex:1!important;background:#f8fafc!important;color:#0f172a!important;border:1.5px solid #94a3b8!important;border-radius:10px!important;padding:10px 12px!important;font-size:13.5px!important;outline:none!important;}
+.an-setter-input:focus{border-color:#003b46!important;background:#ffffff!important;}
+.an-setter-send{background:#e05e00!important;color:#ffffff!important;border:none!important;border-radius:10px!important;padding:0 18px!important;font-weight:800!important;font-size:13.5px!important;cursor:pointer!important;}
+.an-setter-send:hover{background:#c94f00!important;}
+</style>
 </head>
 <body>
 
 <!-- ════════ LOADER ════════ -->
 <div id="page-loader">
-  <div class="loader-ring"></div>
-  <div class="loader-ring"></div>
-  <div class="loader-ring"></div>
-  <div id="loader-center">
-    <div id="loader-logo-wrap">
-      <img id="loader-logo" src="Logoazul.png" alt="Activonorte" />
-    </div>
-    <div id="loader-divider"></div>
-    <div id="loader-tagline">
-      Conectando con el equipo
-      <span class="loader-dots"><span></span><span></span><span></span></span>
-    </div>
-  </div>
-  <div id="loader-bar-wrap"><div id="loader-bar"></div></div>
-  <div id="loader-version">ACTIVONORTE · ECOSISTEMA DE CRECIMIENTO</div>
+<div class="loader-ring"></div>
+<div class="loader-ring"></div>
+<div class="loader-ring"></div>
+<div id="loader-center">
+<div id="loader-logo-wrap">
+<img id="loader-logo" src="Logoazul.png" alt="Activonorte" />
+</div>
+<div id="loader-divider"></div>
+<div id="loader-tagline">
+Conectando con el equipo
+<span class="loader-dots"><span></span><span></span><span></span></span>
+</div>
+</div>
+<div id="loader-bar-wrap"><div id="loader-bar"></div></div>
+<div id="loader-version">ACTIVONORTE · ECOSISTEMA DE CRECIMIENTO</div>
 </div>
 
 <!-- ════════ HEADER ════════ -->
 <header>
-  <div class="logo">ACTIVONORTE</div>
-  <nav>
-    <a href="#">Inicio</a>
-    <a href="#agencia">Agencia</a>
-    <a href="#servicios">Servicios</a>
-  </nav>
-  <button class="hamburger" id="menu-btn" aria-label="Menú">
-    <span></span><span></span><span></span>
-  </button>
+<div class="logo">ACTIVONORTE</div>
+<nav>
+<a href="#">Inicio</a>
+<a href="#agencia">Agencia</a>
+<a href="#servicios">Servicios</a>
+</nav>
+<button class="hamburger" id="menu-btn" aria-label="Menú">
+<span></span><span></span><span></span>
+</button>
 </header>
 <div id="mobile-nav">
-  <a href="#">Inicio</a>
-  <a href="#agencia">Agencia</a>
-  <a href="#servicios">Servicios</a>
+<a href="#">Inicio</a>
+<a href="#agencia">Agencia</a>
+<a href="#servicios">Servicios</a>
 </div>
 
 <!-- ════════ HERO ════════ -->
 <section class="hero">
-  <div class="hero-bg" id="heroBg"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content reveal">
-    <h1>Llenamos tu Gimnasio de Socios Reales</h1>
-    <p>Consultoría de Marketing Deportivo en Cantabria. Deja de depender del boca a boca.</p>
-    <a href="https://wa.me/34610387276?text=Hola%20quiero%20información%20para%20mi%20gimnasio" target="_blank" class="btn-primary">Hablar por WhatsApp</a>
-  </div>
-  <div class="scroll-hint">
-    <span>Scroll</span>
-    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-    </svg>
-  </div>
+<div class="hero-bg" id="heroBg"></div>
+<div class="hero-overlay"></div>
+<div class="hero-content reveal">
+<h1>Llenamos tu Gimnasio de Socios Reales</h1>
+<p>Consultoría de Marketing Deportivo en Cantabria. Deja de depender del boca a boca.</p>
+<a href="https://wa.me/34610387276?text=Hola%20quiero%20informaci%C3%B3n%20para%20mi%20gimnasio" target="_blank" class="btn-primary">Hablar por WhatsApp</a>
+</div>
+<div class="scroll-hint">
+<span>Scroll</span>
+<svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+</svg>
+</div>
 </section>
 
 <!-- ════════ AGENCIA ════════ -->
 <section id="agencia">
-  <div class="container">
-    <h2 class="section-title reveal">¿Por qué elegirnos?</h2>
-    <div class="features-grid">
-      <div class="feature-card reveal reveal-delay-1">
-        <div class="feature-icon">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
-          </svg>
-        </div>
-        <h3>Especialistas 100% Fitness</h3>
-        <p>No somos una agencia generalista. Solo trabajamos con gimnasios y centros deportivos.</p>
-      </div>
-      <div class="feature-card reveal reveal-delay-2">
-        <div class="feature-icon">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-          </svg>
-        </div>
-        <h3>Ubicación Local</h3>
-        <p>Cantabria. Conocemos tu mercado y a tu cliente.</p>
-      </div>
-      <div class="feature-card reveal reveal-delay-3">
-        <div class="feature-icon">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
-          </svg>
-        </div>
-        <h3>Tu rentabilidad</h3>
-        <p>Nos importan los socios, no los likes.</p>
-      </div>
-    </div>
-  </div>
+<div class="container">
+<h2 class="section-title reveal">¿Por qué elegirnos?</h2>
+<div class="features-grid">
+<div class="feature-card reveal reveal-delay-1">
+<div class="feature-icon">
+<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+</svg>
+</div>
+<h3>Especialistas 100% Fitness</h3>
+<p>No somos una agencia generalista. Solo trabajamos con gimnasios y centros deportivos.</p>
+</div>
+<div class="feature-card reveal reveal-delay-2">
+<div class="feature-icon">
+<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+</svg>
+</div>
+<h3>Ubicación Local</h3>
+<p>Cantabria. Conocemos tu mercado y a tu cliente.</p>
+</div>
+<div class="feature-card reveal reveal-delay-3">
+<div class="feature-icon">
+<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+</svg>
+</div>
+<h3>Tu rentabilidad</h3>
+<p>Nos importan los socios, no los likes.</p>
+</div>
+</div>
+</div>
 </section>
 
 <!-- ════════ LOS 3 PILARES ════════ -->
 <section id="testimonios">
-  <div class="container">
-    <h2 class="section-title reveal">Los 3 pilares de Activonorte</h2>
-    <div class="pillars-grid">
-      <article class="pillar-card reveal reveal-delay-1">
-        <div class="pillar-icon">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6.5 7.5h11"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 12h14"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6.5 16.5h11"/>
-            <rect x="4" y="4" width="16" height="16" rx="2" stroke-width="1.8"/>
-          </svg>
-        </div>
-        <h3>Especialización Absoluta</h3>
-        <p>No hacemos marketing para restaurantes ni inmobiliarias. Nuestro ecosistema está diseñado única y exclusivamente para rentabilizar gimnasios y centros deportivos. Hablamos tu mismo idioma.</p>
-      </article>
-      <article class="pillar-card reveal reveal-delay-2">
-        <div class="pillar-icon">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="8" stroke-width="1.8"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l2.5 2.5"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6.5l2-1.5"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20 6.5l-2-1.5"/>
-          </svg>
-        </div>
-        <h3>Retención sobre Captación</h3>
-        <p>Llenar tu gimnasio no sirve de nada si los clientes se van al mes siguiente. Implementamos sistemas de comunidad físicos y digitales para que tus socios creen vínculos y nunca quieran darse de baja.</p>
-      </article>
-      <article class="pillar-card reveal reveal-delay-3">
-        <div class="pillar-icon">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <rect x="3" y="4" width="18" height="14" rx="2" stroke-width="1.8"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 21h8"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M10 18v3"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M14 18v3"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 9h10"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 13h6"/>
-          </svg>
-        </div>
-        <h3>Tecnología Propia</h3>
-        <p>Huye de las plataformas que secuestran tus datos. Construimos infraestructuras rápidas, limpias y de tu propiedad. Si trabajas con nosotros, el control absoluto de tus clientes y de tu negocio es siempre tuyo.</p>
-      </article>
-    </div>
-  </div>
+<div class="container">
+<h2 class="section-title reveal">Los 3 pilares de Activonorte</h2>
+<div class="pillars-grid">
+<article class="pillar-card reveal reveal-delay-1">
+<div class="pillar-icon">
+<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6.5 7.5h11"/>
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 12h14"/>
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6.5 16.5h11"/>
+<rect x="4" y="4" width="16" height="16" rx="2" stroke-width="1.8"/>
+</svg>
+</div>
+<h3>Especialización Absoluta</h3>
+<p>No hacemos marketing para restaurantes ni inmobiliarias. Nuestro ecosistema está diseñado única y exclusivamente para rentabilizar gimnasios y centros deportivos. Hablamos tu mismo idioma.</p>
+</article>
+<article class="pillar-card reveal reveal-delay-2">
+<div class="pillar-icon">
+<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="8" stroke-width="1.8"/>
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l2.5 2.5"/>
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6.5l2-1.5"/>
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20 6.5l-2-1.5"/>
+</svg>
+</div>
+<h3>Retención sobre Captación</h3>
+<p>Llenar tu gimnasio no sirve de nada si los clientes se van al mes siguiente. Implementamos sistemas de comunidad físicos y digitales para que tus socios creen vínculos y nunca quieran darse de baja.</p>
+</article>
+<article class="pillar-card reveal reveal-delay-3">
+<div class="pillar-icon">
+<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<rect x="3" y="4" width="18" height="14" rx="2" stroke-width="1.8"/>
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 21h8"/>
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M10 18v3"/>
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M14 18v3"/>
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 9h10"/>
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 13h6"/>
+</svg>
+</div>
+<h3>Tecnología Propia</h3>
+<p>Huye de las plataformas que secuestran tus datos. Construimos infraestructuras rápidas, limpias y de tu propiedad. Si trabajas con nosotros, el control absoluto de tus clientes y de tu negocio es siempre tuyo.</p>
+</article>
+</div>
+</div>
 </section>
 
 <!-- ════════ SERVICIOS ════════ -->
 <section id="servicios">
-  <div class="container">
-    <h2 class="section-title reveal">Nuestros Servicios</h2>
-    <div class="services-grid">
+<div class="container">
+<h2 class="section-title reveal">Nuestros Servicios</h2>
+<div class="services-grid">
 
-      <!-- Servicio 1: sin cambios -->
-      <div class="service-card reveal reveal-delay-1">
-        <div class="service-card-img-wrap">
-          <img class="service-card-img" src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=800&q=80" alt="Protocolo de Reactivación"/>
-        </div>
-        <div class="service-card-body">
-          <h3>Protocolo de Reactivación</h3>
-          <p>Campaña directa para recuperar antiguos socios y generar flujo inmediato.</p>
-          <div class="price">17€</div>
-          <a href="https://activonorte.lemonsqueezy.com/checkout/buy/75168a38-f4b9-42be-89cc-c9cd1e43f5c2" target="_blank" class="btn-card">Comprar ahora</a>
-        </div>
-      </div>
+<!-- Servicio 1 -->
+<div class="service-card reveal reveal-delay-1">
+<div class="service-card-img-wrap">
+<img class="service-card-img" src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=800&q=80" alt="Protocolo de Reactivación"/>
+</div>
+<div class="service-card-body">
+<h3>Protocolo de Reactivación</h3>
+<p>Campaña directa para recuperar antiguos socios y generar flujo inmediato.</p>
+<div class="price">17€</div>
+<a href="https://activonorte.lemonsqueezy.com/checkout/buy/75168a38-f4b9-42be-89cc-c9cd1e43f5c2" target="_blank" class="btn-card">Comprar ahora</a>
+</div>
+</div>
 
-      <!-- Servicio 2: abre modal-dominio -->
-      <div class="service-card reveal reveal-delay-2">
-        <div class="service-card-img-wrap">
-          <img class="service-card-img" src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&w=800&q=80" alt="Pack Dominio Local"/>
-        </div>
-        <div class="service-card-body">
-          <h3>Pack Dominio Local</h3>
-          <p>Te posicionamos como el gimnasio de referencia en Google y tu zona.</p>
-          <div class="price">Consultar</div>
-          <!-- MODIFICADO: abre modal en lugar de WhatsApp directo -->
-          <button class="btn-card" onclick="abrirModal('modal-dominio')">Pedir Info</button>
-        </div>
-      </div>
+<!-- Servicio 2: abre modal-dominio -->
+<div class="service-card reveal reveal-delay-2">
+<div class="service-card-img-wrap">
+<img class="service-card-img" src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&w=800&q=80" alt="Pack Dominio Local"/>
+</div>
+<div class="service-card-body">
+<h3>Pack Dominio Local</h3>
+<p>Te posicionamos como el gimnasio de referencia en Google y tu zona.</p>
+<div class="price">Consultar</div>
+<button class="btn-card" onclick="abrirModal('modal-dominio')">Pedir Info</button>
+</div>
+</div>
 
-      <!-- Servicio 3: abre modal-growth -->
-      <div class="service-card reveal reveal-delay-3">
-        <div class="service-card-img-wrap">
-          <img class="service-card-img" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80" alt="Growth Partner 360"/>
-        </div>
-        <div class="service-card-body">
-          <h3>Growth Partner 360</h3>
-          <p>Nos convertimos en tu departamento de marketing externo.</p>
-          <div class="price">Mensualidad</div>
-          <!-- MODIFICADO: abre modal en lugar de WhatsApp directo -->
-          <button class="btn-card" onclick="abrirModal('modal-growth')">Agendar</button>
-        </div>
-      </div>
+<!-- Servicio 3: abre modal-growth -->
+<div class="service-card reveal reveal-delay-3">
+<div class="service-card-img-wrap">
+<img class="service-card-img" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80" alt="Growth Partner 360"/>
+</div>
+<div class="service-card-body">
+<h3>Growth Partner 360</h3>
+<p>Nos convertimos en tu departamento de marketing externo.</p>
+<div class="price">Mensualidad</div>
+<button class="btn-card" onclick="abrirModal('modal-growth')">Agendar</button>
+</div>
+</div>
 
-    </div>
-  </div>
+</div>
+</div>
 </section>
 
 <!-- ════════ CONTACTO ════════ -->
 <section id="contacto">
-  <div class="container">
-    <h2 class="reveal">¿Listo para llenar tu gimnasio?</h2>
-    <p class="reveal reveal-delay-1">Habla con nosotros hoy. Sin compromiso, sin rodeos.</p>
-    <a href="https://wa.me/34610387276?text=Hola%20quiero%20información%20para%20mi%20gimnasio" target="_blank" class="btn-primary reveal reveal-delay-2">Hablar por WhatsApp</a>
-  </div>
+<div class="container">
+<h2 class="reveal">¿Listo para llenar tu gimnasio?</h2>
+<p class="reveal reveal-delay-1">Habla con nosotros hoy. Sin compromiso, sin rodeos.</p>
+<a href="https://wa.me/34610387276?text=Hola%20quiero%20informaci%C3%B3n%20para%20mi%20gimnasio" target="_blank" class="btn-primary reveal reveal-delay-2">Hablar por WhatsApp</a>
+</div>
 </section>
 
 <!-- ════════ FOOTER ════════ -->
 <footer>
-  <p>© 2026 Activonorte. Todos los derechos reservados.</p>
+<p>© 2026 Activonorte. Todos los derechos reservados.</p>
 </footer>
-
 
 <!-- ══════════════════════════════════════════════════════════
      MODAL 1 — PACK DOMINIO LOCAL
 ════════════════════════════════════════════════════════════ -->
 <div id="modal-dominio" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="titulo-dominio">
-
-  <div class="modal-box">
-
-    <div class="modal-header">
-      <div class="modal-header-text">
-        <span class="modal-tag">Servicio · Posicionamiento</span>
-        <h3 class="modal-title" id="titulo-dominio">Pack Dominio Local</h3>
-      </div>
-      <button class="modal-close" onclick="cerrarModal('modal-dominio')" aria-label="Cerrar">
-        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-    </div>
-
-    <div class="modal-body">
-
-      <div class="modal-block">
-        <p class="modal-block-label">El problema</p>
-        <p>El <strong>80% de las personas</strong> que buscan apuntarse a un gimnasio escriben en su móvil <em>"gimnasio cerca de mí"</em>. Si tu centro no aparece entre los tres primeros resultados del mapa, estás perdiendo decenas de cuotas al mes sin saberlo.</p>
-      </div>
-
-      <div class="modal-block">
-        <p class="modal-block-label">La solución</p>
-        <p>Una intervención técnica integral diseñada para que tu centro se posicione como el gimnasio de referencia en Google y en tu zona geográfica, de forma sostenible y medible.</p>
-      </div>
-
-      <div class="modal-divider"></div>
-
-      <div class="modal-block">
-        <p class="modal-block-label">Qué incluye</p>
-        <ul class="modal-list">
-          <li>
-            <span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span><strong>Optimización SEO Local</strong> — Auditoría y corrección técnica para que Google te encuentre y te priorice.</span>
-          </li>
-          <li>
-            <span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span><strong>Dominio de Google Perfil de Empresa</strong> — Optimización completa de tu ficha para aparecer en el mapa con máxima visibilidad.</span>
-          </li>
-          <li>
-            <span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span><strong>Sistema de Reseñas Automatizado</strong> — Protocolo en recepción para generar reseñas positivas de forma constante y orgánica.</span>
-          </li>
-          <li>
-            <span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span><strong>Estrategia de Autoridad Visual</strong> — Contenido fotográfico y multimedia optimizado para reforzar tu presencia online.</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="modal-divider"></div>
-
-      <button class="modal-cta" onclick="cerrarYAbrir('modal-dominio', 'https://wa.me/34610387276?text=Hola%20quiero%20información%20sobre%20el%20Pack%20Dominio%20Local')">
-        Quiero dominar mi zona →
-      </button>
-
-    </div>
-  </div>
+<div class="modal-box">
+<div class="modal-header">
+<div class="modal-header-text">
+<span class="modal-tag">Servicio · Posicionamiento</span>
+<h3 class="modal-title" id="titulo-dominio">Pack Dominio Local</h3>
+</div>
+<button class="modal-close" onclick="cerrarModal('modal-dominio')" aria-label="Cerrar">
+<svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+</svg>
+</button>
 </div>
 
+<div class="modal-body">
+<div class="modal-block">
+<p class="modal-block-label">El problema</p>
+<p>El <strong>80% de las personas</strong> que buscan apuntarse a un gimnasio escriben en su móvil <em>"gimnasio cerca de mí"</em>. Si tu centro no aparece entre los tres primeros resultados del mapa, estás perdiendo decenas de cuotas al mes sin saberlo.</p>
+</div>
+
+<div class="modal-block">
+<p class="modal-block-label">La solución</p>
+<p>Una intervención técnica integral diseñada para que tu centro se posicione como el gimnasio de referencia en Google y en tu zona geográfica, de forma sostenible y medible.</p>
+</div>
+
+<div class="modal-divider"></div>
+
+<div class="modal-block">
+<p class="modal-block-label">Qué incluye</p>
+<ul class="modal-list">
+<li>
+<span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span><strong>Optimización SEO Local</strong> — Auditoría y corrección técnica para que Google te encuentre y te priorice.</span>
+</li>
+<li>
+<span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span><strong>Dominio de Google Perfil de Empresa</strong> — Optimización completa de tu ficha para aparecer en el mapa con máxima visibilidad.</span>
+</li>
+<li>
+<span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span><strong>Sistema de Reseñas Automatizado</strong> — Protocolo en recepción para generar reseñas positivas de forma constante y orgánica.</span>
+</li>
+<li>
+<span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span><strong>Estrategia de Autoridad Visual</strong> — Contenido fotográfico y multimedia optimizado para reforzar tu presencia online.</span>
+</li>
+</ul>
+</div>
+
+<div class="modal-divider"></div>
+
+<button class="modal-cta" onclick="cerrarYAbrir('modal-dominio', 'https://wa.me/34610387276?text=Hola%20quiero%20informaci%C3%B3n%20sobre%20el%20Pack%20Dominio%20Local')">
+Quiero dominar mi zona →
+</button>
+</div>
+</div>
+</div>
 
 <!-- ══════════════════════════════════════════════════════════
      MODAL 2 — GROWTH PARTNER 360
 ════════════════════════════════════════════════════════════ -->
 <div id="modal-growth" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="titulo-growth">
-
-  <div class="modal-box">
-
-    <div class="modal-header">
-      <div class="modal-header-text">
-        <span class="modal-tag">Servicio · Asociación Estratégica</span>
-        <h3 class="modal-title" id="titulo-growth">Growth Partner 360</h3>
-      </div>
-      <button class="modal-close" onclick="cerrarModal('modal-growth')" aria-label="Cerrar">
-        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-    </div>
-
-    <div class="modal-body">
-
-      <div class="modal-block">
-        <p class="modal-block-label">El problema</p>
-        <p>Los gerentes dedican su día a gestionar entrenadores e instalaciones. Gestionar el marketing de forma improvisada genera <strong>presupuestos desperdiciados y meses inestables</strong> que impiden escalar el negocio.</p>
-      </div>
-
-      <div class="modal-block">
-        <p class="modal-block-label">La solución</p>
-        <p>Activonorte asume el control total convirtiéndose en el <strong>departamento de marketing externo</strong> de tu centro. Una asociación de crecimiento orientada a resultados reales y medibles mes a mes.</p>
-      </div>
-
-      <div class="modal-divider"></div>
-
-      <div class="modal-block">
-        <p class="modal-block-label">Qué incluye</p>
-        <ul class="modal-list">
-          <li>
-            <span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span><strong>Ingeniería de Captación Continua en Meta</strong> — Campañas de Instagram y Facebook diseñadas para generar leads cualificados mes a mes.</span>
-          </li>
-          <li>
-            <span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span><strong>Sistema de Retención y Comunidad</strong> — Protocolo Phygital para crear vínculos entre socios y reducir la tasa de bajas.</span>
-          </li>
-          <li>
-            <span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span><strong>Protocolo de Reactivación trimestral</strong> — Integrado para recuperar antiguos socios y generar ingresos extra de forma recurrente.</span>
-          </li>
-          <li>
-            <span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span><strong>Filtrado y Cualificación de Leads</strong> — Solo llegan a ti los prospectos con intención real de compra.</span>
-          </li>
-          <li>
-            <span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span><strong>Consultoría Estratégica Mensual</strong> — Reunión de análisis de resultados y ajuste de estrategia cada mes.</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="modal-divider"></div>
-
-      <button class="modal-cta" onclick="cerrarYAbrir('modal-growth', 'https://wa.me/34610387276?text=Hola%20quiero%20agendar%20una%20consultoría%20gratuita%20sobre%20Growth%20Partner%20360')">
-        Agendar consultoría gratuita →
-      </button>
-
-    </div>
-  </div>
+<div class="modal-box">
+<div class="modal-header">
+<div class="modal-header-text">
+<span class="modal-tag">Servicio · Asociación Estratégica</span>
+<h3 class="modal-title" id="titulo-growth">Growth Partner 360</h3>
+</div>
+<button class="modal-close" onclick="cerrarModal('modal-growth')" aria-label="Cerrar">
+<svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+</svg>
+</button>
 </div>
 
+<div class="modal-body">
+<div class="modal-block">
+<p class="modal-block-label">El problema</p>
+<p>Los gerentes dedican su día a gestionar entrenadores e instalaciones. Gestionar el marketing de forma improvisada genera <strong>presupuestos desperdiciados y meses inestables</strong> que impiden escalar el negocio.</p>
+</div>
+
+<div class="modal-block">
+<p class="modal-block-label">La solución</p>
+<p>Activonorte asume el control total convirtiéndose en el <strong>departamento de marketing externo</strong> de tu centro. Una asociación de crecimiento orientada a resultados reales y medibles mes a mes.</p>
+</div>
+
+<div class="modal-divider"></div>
+
+<div class="modal-block">
+<p class="modal-block-label">Qué incluye</p>
+<ul class="modal-list">
+<li>
+<span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span><strong>Ingeniería de Captación Continua en Meta</strong> — Campañas de Instagram y Facebook diseñadas para generar leads cualificados mes a mes.</span>
+</li>
+<li>
+<span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span><strong>Sistema de Retención y Comunidad</strong> — Protocolo Phygital para crear vínculos entre socios y reducir la tasa de bajas.</span>
+</li>
+<li>
+<span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span><strong>Protocolo de Reactivación trimestral</strong> — Integrado para recuperar antiguos socios y generar ingresos extra de forma recurrente.</span>
+</li>
+<li>
+<span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span><strong>Filtrado y Cualificación de Leads</strong> — Solo llegan a ti los prospectos con intención real de compra.</span>
+</li>
+<li>
+<span class="modal-check"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span><strong>Consultoría Estratégica Mensual</strong> — Reunión de análisis de resultados y ajuste de estrategia cada mes.</span>
+</li>
+</ul>
+</div>
+
+<div class="modal-divider"></div>
+
+<button class="modal-cta" onclick="cerrarYAbrir('modal-growth', 'https://wa.me/34610387276?text=Hola%20quiero%20agendar%20una%20consultor%C3%ADa%20gratuita%20sobre%20Growth%20Partner%20360')">
+Agendar consultoría gratuita →
+</button>
+</div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     WIDGET AGENTE SETTER B2B · ACTIVONORTE
+════════════════════════════════════════════════════════════ -->
+<button class="an-setter-trigger" id="anSetterToggle">
+<span class="an-setter-dot"></span>
+Diagnóstico Gratuito · IA
+</button>
+
+<div class="an-setter-window" id="anSetterWindow">
+<div class="an-setter-header">
+<div class="an-setter-header-info">
+<h4>Consultor Activonorte · IA</h4>
+<span>Diagnóstico y Captación para Gimnasios</span>
+</div>
+<button class="an-setter-close" id="anSetterClose">✕</button>
+</div>
+
+<div class="an-setter-chips">
+<button class="an-setter-chip" data-prompt="Quiero solicitar la Auditoría Gratuita de Google de 15 minutos">📈 Auditoría Gratuita</button>
+<button class="an-setter-chip" data-prompt="Se me dan de baja socios cada mes, ¿cómo funciona el Protocolo 48H?">🔄 Frenar bajas (48H)</button>
+<button class="an-setter-chip" data-prompt="¿Qué incluye el Pack Dominio Local y Growth Partner 360?">🚀 Servicios y Precios</button>
+</div>
+
+<div class="an-setter-messages" id="anSetterMessages">
+<div class="an-s-msg bot">
+<strong>¡Hola! Bienvenido a Activonorte.</strong><br>
+Ayudamos a gimnasios y centros deportivos a recuperar ex-socios en 48h y liderar las búsquedas en Google de su ciudad.<br><br>
+Cuéntame, <strong>¿qué tipo de centro deportivo diriges y en qué ciudad estáis?</strong>
+</div>
+</div>
+
+<form class="an-setter-input-area" id="anSetterForm">
+<input type="text" class="an-setter-input" id="anSetterInput" placeholder="Escribe tu duda o tipo de gimnasio..." required />
+<button type="submit" class="an-setter-send">Enviar</button>
+</form>
+</div>
 
 <script>
-  /* ── HERO ──────────────────────────────────────────────── */
-  const heroBg = document.getElementById('heroBg');
-  const heroImg = new Image();
-  heroImg.src = 'https://images.unsplash.com/photo-1558611848-73f7eb4001a1?auto=format&fit=crop&w=1800&q=80';
-  heroImg.onload = () => { heroBg.classList.add('loaded'); };
-  window.addEventListener('scroll', () => {
-    const s = window.scrollY;
-    if (s < window.innerHeight) heroBg.style.transform = `translateY(${s * 0.3}px) scale(1)`;
-  }, { passive: true });
+/* ── HERO ──────────────────────────────────────────────── */
+const heroBg = document.getElementById('heroBg');
+const heroImg = new Image();
+heroImg.src = 'https://images.unsplash.com/photo-1558611848-73f7eb4001a1?auto=format&fit=crop&w=1800&q=80';
+heroImg.onload = () => { heroBg.classList.add('loaded'); };
+window.addEventListener('scroll', () => {
+const s = window.scrollY;
+if (s < window.innerHeight) heroBg.style.transform = `translateY(${s * 0.3}px) scale(1)`;
+}, { passive: true });
 
-  /* ── MOBILE MENU ───────────────────────────────────────── */
-  const menuBtn   = document.getElementById('menu-btn');
-  const mobileNav = document.getElementById('mobile-nav');
-  menuBtn.addEventListener('click', () => { mobileNav.classList.toggle('open'); });
+/* ── MOBILE MENU ───────────────────────────────────────── */
+const menuBtn = document.getElementById('menu-btn');
+const mobileNav = document.getElementById('mobile-nav');
+menuBtn.addEventListener('click', () => { mobileNav.classList.toggle('open'); });
 
-  /* ── NAV LINKS ─────────────────────────────────────────── */
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const id = this.getAttribute('href');
-      if (!id || id === '#') {
-        e.preventDefault();
-        mobileNav.classList.remove('open');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        return;
-      }
-      const target = document.querySelector(id);
-      if (!target) return;
-      e.preventDefault();
-      mobileNav.classList.remove('open');
-      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 64, behavior: 'smooth' });
-    });
-  });
+/* ── NAV LINKS ─────────────────────────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function (e) {
+const id = this.getAttribute('href');
+if (!id || id === '#') {
+e.preventDefault();
+mobileNav.classList.remove('open');
+window.scrollTo({ top: 0, behavior: 'smooth' });
+return;
+}
+const target = document.querySelector(id);
+if (!target) return;
+e.preventDefault();
+mobileNav.classList.remove('open');
+window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 64, behavior: 'smooth' });
+});
+});
 
-  /* ── REVEAL ────────────────────────────────────────────── */
-  const ro = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+/* ── REVEAL ────────────────────────────────────────────── */
+const ro = new IntersectionObserver(entries => {
+entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-  /* ── LOADER ────────────────────────────────────────────── */
-  const loader    = document.getElementById('page-loader');
-  const loaderBar = document.getElementById('loader-bar');
+/* ── LOADER ────────────────────────────────────────────── */
+const loader = document.getElementById('page-loader');
+const loaderBar = document.getElementById('loader-bar');
 
-  function showLoader(url) {
-    const nuevaPestana = window.open('', '_blank');
-    loaderBar.style.animation = 'none';
-    loaderBar.offsetHeight;
-    loaderBar.style.animation = '';
-    loader.classList.add('active');
-    setTimeout(() => {
-      if (nuevaPestana && !nuevaPestana.closed) {
-        nuevaPestana.location.href = url;
-      } else {
-        window.location.href = url;
-      }
-      setTimeout(() => { loader.classList.remove('active'); }, 500);
-    }, 1050);
-  }
+function showLoader(url) {
+const nuevaPestana = window.open('', '_blank');
+loaderBar.style.animation = 'none';
+loaderBar.offsetHeight;
+loaderBar.style.animation = '';
+loader.classList.add('active');
+setTimeout(() => {
+if (nuevaPestana && !nuevaPestana.closed) {
+nuevaPestana.location.href = url;
+} else {
+window.location.href = url;
+}
+setTimeout(() => { loader.classList.remove('active'); }, 500);
+}, 1050);
+}
 
-  /* ══════════════════════════════════════════════════════════
-     SISTEMA DE MODALES
-  ══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════
+   SISTEMA DE MODALES
+══════════════════════════════════════════════════════════ */
+function abrirModal(id) {
+const overlay = document.getElementById(id);
+if (!overlay) return;
+overlay.classList.add('active');
+document.body.style.overflow = 'hidden';
+}
 
-  /* Abre el modal indicado */
-  function abrirModal(id) {
-    const overlay = document.getElementById(id);
-    if (!overlay) return;
-    overlay.classList.add('active');
-    document.body.style.overflow = 'hidden'; /* evita scroll del fondo */
-  }
+function cerrarModal(id) {
+const overlay = document.getElementById(id);
+if (!overlay) return;
+overlay.classList.remove('active');
+document.body.style.overflow = '';
+}
 
-  /* Cierra el modal indicado */
-  function cerrarModal(id) {
-    const overlay = document.getElementById(id);
-    if (!overlay) return;
-    overlay.classList.remove('active');
-    document.body.style.overflow = '';
-  }
+function cerrarYAbrir(idModal, url) {
+cerrarModal(idModal);
+setTimeout(() => { showLoader(url); }, 150);
+}
 
-  /* Cierra el modal y lanza el loader de WhatsApp */
-  function cerrarYAbrir(idModal, url) {
-    cerrarModal(idModal);
-    /* Pequeño delay para que el modal termine de cerrarse
-       antes de que el loader aparezca encima */
-    setTimeout(() => { showLoader(url); }, 150);
-  }
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+overlay.addEventListener('click', function (e) {
+if (e.target === this) {
+cerrarModal(this.id);
+}
+});
+});
 
-  /* Cierra cualquier modal al hacer clic en el overlay oscuro */
-  document.querySelectorAll('.modal-overlay').forEach(overlay => {
-    overlay.addEventListener('click', function (e) {
-      /* Solo cierra si el clic fue directamente en el overlay,
-         no en el contenido interior del modal */
-      if (e.target === this) {
-        cerrarModal(this.id);
-      }
-    });
-  });
+document.addEventListener('keydown', function (e) {
+if (e.key === 'Escape') {
+document.querySelectorAll('.modal-overlay.active').forEach(overlay => {
+cerrarModal(overlay.id);
+});
+}
+});
 
-  /* Cierra con la tecla Escape */
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.modal-overlay.active').forEach(overlay => {
-        cerrarModal(overlay.id);
-      });
-    }
-  });
+/* ══════════════════════════════════════════════════════════
+   LÓGICA AGENTE SETTER B2B · ACTIVONORTE
+══════════════════════════════════════════════════════════ */
+(function() {
+const sToggle = document.getElementById("anSetterToggle");
+const sWindow = document.getElementById("anSetterWindow");
+const sClose = document.getElementById("anSetterClose");
+const sForm = document.getElementById("anSetterForm");
+const sInput = document.getElementById("anSetterInput");
+const sMessages = document.getElementById("anSetterMessages");
+const chatHistory = [];
+
+sToggle.addEventListener("click", () => sWindow.classList.toggle("open"));
+sClose.addEventListener("click", () => sWindow.classList.remove("open"));
+
+document.querySelectorAll(".an-setter-chip").forEach((chip) => {
+chip.addEventListener("click", () => {
+sendSetterPrompt(chip.getAttribute("data-prompt"));
+});
+});
+
+sForm.addEventListener("submit", (e) => {
+e.preventDefault();
+const text = sInput.value.trim();
+if (!text) return;
+sInput.value = "";
+sendSetterPrompt(text);
+});
+
+function addMsg(html, type) {
+const div = document.createElement("div");
+div.className = "an-s-msg " + type;
+div.innerHTML = html;
+sMessages.appendChild(div);
+sMessages.scrollTop = sMessages.scrollHeight;
+return div;
+}
+
+async function sendSetterPrompt(text) {
+addMsg(text, "user");
+const loading = addMsg("Analizando el caso de tu centro deportivo...", "bot");
+
+try {
+const res = await fetch("https://landing-page-beta-ivory-99.vercel.app/api/setter", {
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify({ message: text, history: chatHistory })
+});
+if (!res.ok) throw new Error("Fallback");
+const data = await res.json();
+chatHistory.push({ role: "user", text: text });
+chatHistory.push({ role: "assistant", text: data.reply });
+
+loading.innerHTML = data.reply + '<br><a href="' + data.waUrl + '" onclick="showLoader(this.href); return false;" target="_blank" rel="noopener noreferrer" class="an-wa-cta">📲 Agendar Auditoría de 15 min por WhatsApp →</a>';
+} catch (err) {
+const fallbackWa = "https://wa.me/34610387276?text=" + encodeURIComponent("Hola Sergio, vengo de la web de Activonorte y quiero información para mi gimnasio: " + text);
+loading.innerHTML = 'En Activonorte diseñamos estrategias a medida según el volumen de socios y la competencia de tu barrio. Para darte números exactos, hacemos primero una <strong>Auditoría Gratuita de 15 minutos</strong> viendo tu ficha de Google en directo.<br><a href="' + fallbackWa + '" onclick="showLoader(this.href); return false;" target="_blank" rel="noopener noreferrer" class="an-wa-cta">📲 Hablar con Sergio por WhatsApp →</a>';
+}
+sMessages.scrollTop = sMessages.scrollHeight;
+}
+})();
 </script>
 </body>
 </html>
